@@ -1,0 +1,34 @@
+:root { --rotation: none; --blink: block;}
+#plateau{ margin: auto; border: groove 5px gold; width: min-content; transition: transform 1.5s linear; transform: var(--rotation); position: relative;}
+.ligne	{
+	display: inline-flex;
+	position: relative;
+	}
+.case	{
+	width: 98px;
+	height: 98px;
+	border: solid 1px white;
+	position: relative;
+	}
+.case.black	{
+	color: white;
+	background-color: black;
+	border: solid 1px black;
+	}
+.wp, .bp	{
+	height: -webkit-fill-available;
+	background-position: center;
+	}
+.wp	{
+	transform: rotate(180deg);
+	}
+.index {
+	transform: var(--rotation);
+	display: var(--blink);
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 5px;
+	}
