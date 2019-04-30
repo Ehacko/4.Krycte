@@ -60,17 +60,17 @@ function myturn(){
     for (i = 0; i < a.length - 1; i++){
         a[i].className.replace(' atk', "");
     }
-    if(b%2 == 0 && c[0] == "wp") { c = event.currentTarget; move(c); }
+    if(b%2 == 0 && c[0] == "wp") { c = event.currentTarget; nxtmvt(0); }
     else if(b%2 == 0 && c[0] != "wp") alert("it's white's turn!!");
-    else if(b%2 == 1 && c[0] == "bp") { c = event.currentTarget; move(c); }
+    else if(b%2 == 1 && c[0] == "bp") { c = event.currentTarget; nxtmvt(1); }
     else if(b%2 == 1 && c[0] != "bp") alert("it's black's turn!!");
 }
-function nxtmvt(c){ let pion, c, pos, y, x;
+function nxtmvt(team){ let pion, c, pos, y, x;
     pion = event.currentTarget.className.split(' ');
     pos = event.currentTarget.parentElement.id;
     y = eval(pos.slice(0, 1)), x = Number(pos.slice(1));
     switch (pion[1]){
-        case 'hr':
+     /*   case 'hr':
             for (i = x + 1; i <= 10; i++) {
                 move = pos.slice(0, 1) + i;
                 move = document.getElementById(move).children;
@@ -89,7 +89,7 @@ function nxtmvt(c){ let pion, c, pos, y, x;
             }
         break;
 
-        case 'lb': break;
+     */   case 'lb': break;
 
         case 'qk': break;
 
@@ -104,6 +104,22 @@ function nxtmvt(c){ let pion, c, pos, y, x;
         case 'kk': break;
 
         case 'rb': break;
+
+        case 'vr': break;
+
+        case 'ft':
+            move = eval("L" + (y + 1)) + x;
+            move = document.getElementById(move).children;
+            if ( eval("L" + y) == B && team == 0 ){
+                if( move[1].className.split[0] == 
+            else if ( eval("L" + y) == I && team == 1 ){  }
+            else {  }
+            break;
+
+        case 'ar':
+            move =  eval("L" + (y + 1)) + x;
+            move = document.getElementById(move).children;
+            break;
     }
 }
 function next() { b++; turn(); }
