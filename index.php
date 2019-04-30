@@ -1,3 +1,7 @@
+<!-- Mes problem sont:
+- l'eventListener n'affecte que la moitié des element demandés
+- predefinir les mouvement que peuvent faire chacune de mes piece
+-->
 <head>
 	<title>Krycte</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
