@@ -18,8 +18,9 @@
 .wp, .bp	{
 	height: -webkit-fill-available;
 	background-position: center;
+	z-index: 500;
 	}
-.wp	{
+.bp	{
 	transform: rotate(180deg);
 	}
 .index {
