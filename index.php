@@ -1,5 +1,5 @@
 <!-- Mes problem sont:
-- l'eventListener n'affecte que la moitié des element demandés
+- l'eventListener n'affecte que la moitiï¿½ des element demandï¿½s
 - predefinir les mouvement que peuvent faire chacune de mes piece
 -->
 <head>
@@ -9,6 +9,6 @@
 <body>
 <div id='F9'><button onclick='game("1")' class=''>new game</button></div><div id='F9'><button onclick='next()' class=''>tour suivant</button></div>
 <div id="plateau"></div>
-<div class="modal" </div>
+<div class="modal"> </div>
 <script src="script/script.js"></script>
 <body>

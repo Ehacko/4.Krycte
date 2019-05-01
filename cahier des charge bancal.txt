@@ -1,0 +1,40 @@
+Creation du damier:
+    recup�re l'element dans lequel je place mon damier(plateau);
+    pourX10(je cr�e une ligne dans "plateau" et lui attribut une lettre en tant que id) {
+        pour10(je cr�e une case dans la ligne actuelle, definie sa couleur et lui attribut la lettre de sa ligne + i en tant que id){
+            si(l'id de la case correspond � l'emplacement d'une pieces) cr�e la piece dans la case;
+        }
+    }
+
+Permettre le mouvement des pi�ce:
+    j'ajoute un eventListener sur chaque case;
+    lorsqu'une case est cliqu�:
+        - si(la case ne contient pas de piece ET qu'elle n'a pas la class "mouvement") lancer "nettoyer";
+        - sinon si(la case contient un piece ET qu'elle n'a pas la class "ennemie") lancer "nettoyer" puis lancer "Definir les mouvement de chaque pi�ce" et afficher le resultat;
+        - sinon si(la case a la class "ennemie") lancer "nettoyer" puis remplacer la piece de cette case par la piece dont les mouvement �tais affich�;
+        - sinon si(la case a la class "mouvement") lancer "nettoyer" puis deplacer la piece dont les mouvement �tais affich� dans la case selectionn�;
+	
+
+Definir les mouvement de chaque pi�ce:
+    recup�rer le type de pi�ce selectionn�;
+    si le type de pi�ce est:
+        - roi alors afficher mouvement du roi;
+        - pion alors afficher mouvement du pion;
+        - fou alors afficher mouvement du fou;
+        - cavalier alors afficher mouvement du cavalier;
+        - etc ...
+    renvoyer les movement possible
+
+Nettoyer:
+	recuperer tout les elements qui est la classe mouvement et la supprimer;
+	recuperer tout les elements qui est la classe ennemie et la supprimer;
+	
+
+Ajouter le tour par tour:
+	initialisation du premier tour(tour = blanc);
+	recuperer la couleur du pion selectionn�;
+	si(la couleur du pion =  tour) lancer "Permettre le mouvement des pi�ce";
+	sinon dire "c'est au tour des (var tour) de jouer !!";
+	si(tour = blanc) affecte valeur "noir" � (var tour);
+	sinon affecte valeur "blanc" � (var tour);
+	dire "tour au (var tour)";
