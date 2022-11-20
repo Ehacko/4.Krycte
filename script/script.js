@@ -30,7 +30,7 @@ function game(start){
     }
     c = document.getElementsByClassName('case');
     if(start == "0") return;
-    for(i=0; i < c.length - 1; i++) c[i].addEventListener('clic', turn);
+    for(i=0; i < c.length - 1; i++) c[i].addEventListener('click', turn);
     a = 1
     turn();
 }
