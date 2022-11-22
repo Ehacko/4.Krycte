@@ -29,7 +29,7 @@ function game(start){
         }
     }
     b = 0;
-    c = document.getElementsByClassName('case');
+    c = [...document.getElementsByClassName('case')];
     if(start == "0") return;
     c.forEach((function(cases, index) {
         cases.addEventListener("click", myturn)}))
