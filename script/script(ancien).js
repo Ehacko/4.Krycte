@@ -20,8 +20,8 @@ function game(start){
         b = document.getElementById(eval("L" + i1));
 // creation des case et des pions
         for(i2 = 1; i2 <= 10; i2 ++){
-            if (i1%2 == 0) { if (i2%2 == 0) c = ""; else c = "black";}
-            else { if (i2%2 != 0) c = ""; else c = "black";}
+            if (i1%2 == 0) { if (i2%2 == 0) c = ""; else c = " blk";}
+            else { if (i2%2 != 0) c = ""; else c = " blk";}
             if (eval("L" + i1) == "A" || eval("L" + i1) == "B" || eval("L" + i1) == "I" || eval("L" + i1) == "J")
                 b.innerHTML += "<div class='case " + c + "' id='" + eval("L" + i1) + i2 + "'><span class='index'>" + eval("L" + i1) + i2 + "</span><div name='pion' class='" + eval(eval("L" + i1) + i2 + "[0]") + eval(eval("L" + i1) + i2 + "[1]") + "' style='background-image: url(img/" + eval(eval("L" + i1) + i2 + "[2]") + ".png)'></div></div>";
             else
