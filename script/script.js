@@ -155,7 +155,7 @@ function play(pawn){
             return valid;
         }
         directions.forEach(cardinal => {
-            do {} while (multi && direction(cardinal) == "range");
+            do {} while (direction(cardinal) == "range" && multi);
         });
     }
     const { move,direction,multi } = pawnMoves[pawn.classList[1]]
