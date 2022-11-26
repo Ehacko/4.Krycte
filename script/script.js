@@ -13,61 +13,61 @@ const A = 1, B = 2, C = 3, D = 4, E = 5, F = 6, G = 7 ,H = 8, I = 9, J =10,
     pawnMoves = {
         // horizontal rook
         hr: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["E","W"],
             multi: true
         },
         // left bishop
         lb: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["SW","NW"],
             multi: true
         },
         // queen knight
         qk: {
-            pattern: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)],
+            move: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)],
             direction: ["NE","SE","SW","NW"],
             multi: false
         },
         // concubine
         cb: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
             multi: true
         },
         // king
         kg: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["N","E","S","W"],
             multi: false
         },
         // queen
         qn: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["N","E","S","W"],
             multi: true
         },
         // understudy
         us: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
             multi: false
         },
         // king knight
         kk: {
-            pattern: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)],
+            move: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)],
             direction: ["N","E","S","W"],
             multi: false
         },
         // right bishop
         rb: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["NE","SE"],
             multi: true
         },
         // vertical root
         vr: {
-            pattern: move_pattern.linear,
+            move: move_pattern.linear,
             direction: ["N","S"],
             multi: true
         },
@@ -101,7 +101,7 @@ function game(start){
 function turn(){
     if (event.currentTarget.children.length > 1){
         a = event.currentTarget.children[1].className.split(' ')[0]
-        if (b == a) play();
+        if (b == a) play(event.currentTarget.children[1]);
         else if (b != a) alert("its" + b +"'s turn");
         else alert('error');
     }
@@ -118,7 +118,7 @@ function turn(){
         
     }
 }
-function play(){
+function play(pawn){
     function pattern(moves, directions, multi){
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
@@ -158,5 +158,8 @@ function play(){
             do {} while (multi && direction(cardinal) == "range");
         });
     }
+    const { move,direction,multi } = pawnMoves[pawn.classList[1]]
+    pattern(move,direction,multi)
+
 }
 game(0);
