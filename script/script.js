@@ -102,7 +102,7 @@ function turn(){
     if (event.currentTarget.children.length > 1){
         a = event.currentTarget.children[1].className.split(' ')[0]
         if (b == a) play(event.currentTarget.children[1]);
-        else if (b != a) alert("its" + b +"'s turn");
+        else if (b != a) alert("its " + b +"'s turn");
         else alert('error');
     }
     if (a == 1){
