@@ -1,15 +1,79 @@
 //declaration des variables.
 //les varriables A1 � 10 et J1 � 10 contiennent les valeurs des pieces maitresses, tandis que celles de B1 � 10 et I1 � 10 contiennent les valeurs des autres pieces.
 //A1(position sur damier) = ["white"(equipe blanche), "hr"(tour horizontal), "whr"(tour horizontal blanche)]
-var a, b, c, A = 1, B = 2, C = 3, D = 4, E = 5, F = 6, G = 7 ,H = 8, I = 9, J =10,
-    L1 = "A", L2 = "B", L3 = "C", L4 = "D", L5 = "E", L6 = "F", L7 = "G", L8 = "H", L9 = "I", L10 = "J",
+const a, b, c, A = 1, B = 2, C = 3, D = 4, E = 5, F = 6, G = 7 ,H = 8, I = 9, J =10,
+    L1 = "A", L2 = "B", L3 = "C", L4 = "D", L5 = "E", L6 = "F", L7 = "G", L8 = "H", L9 = "I", L10 = "j",
     A1 = ["black", " hr", "bhr"], A2 = ["black", " lb", "blb"], A3 = ["black", " qk", "bqk"], A4 = ["black", " cb", "bcb"], A5 = ["black", " kg", "bkg"],
     A6 = ["black", " qn", "bqn"], A7 = ["black", " us", "bus"], A8 = ["black", " kk", "bkk"], A9 = ["black", " rb", "brb"], A10 = ["black", " vr", "bvr"],
     B1 = B3 = B5 = B7 = B9 = ["black", " ft", "bft"], B2 = B4 = B6 = B8 = B10 = ["black", " ar", "bar"],
     J1 = ["white", " vr", "wvr"], J2 = ["white", " rb", "wrb"], J3 = ["white", " kk", "wkk"], J4 = ["white", " cb", "wcb"], J5 = ["white", " kg", "wkg"],
     J6 = ["white", " qn", "wqn"], J7 = ["white", " us", "wus"], J8 = ["white", " qk", "wqk"], J9 = ["white", " lb", "wlb"], J10 = ["white", " hr", "whr"],
-    I1 = I3 = I5 = I7 = I9 = ["white", " ft", "wft"], I2 = I4 = I6 = I8 = I10 = ["white", " ar", "war"];
+    I1 = I3 = I5 = I7 = I9 = ["white", " ft", "wft"], I2 = I4 = I6 = I8 = I10 = ["white", " ar", "war"],
+    move_pattern = { linear(n){ return n }, L(n2){ return (n) => n*2 + n2(n) }},
+    pawnMoves = {
+        // horizontal rook
+        hr: {
+            pattern: move_pattern.linear,
+            direction: ["E","W"],
+            multi: true
+        },
+        // left bishop
+        lb: {
+            pattern: move_pattern.linear,
+            direction: ["SW","NW"],
+            multi: true
+        },
+        // queen knight
+        qk: {
+            pattern: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)],
+            direction: ["NE","SE","SW","NW"],
+            multi: false
+        },
+        // concubine
+        cb: {
+            pattern: move_pattern.linear,
+            direction: ["NE","SE","SW","NW"],
+            multi: true
+        },
+        // king
+        kg: {
+            pattern: move_pattern.linear,
+            direction: ["N","E","S","W"],
+            multi: false
+        },
+        // queen
+        qn: {
+            pattern: move_pattern.linear,
+            direction: ["N","E","S","W"],
+            multi: true
+        },
+        // understudy
+        us: {
+            pattern: move_pattern.linear,
+            direction: ["NE","SE","SW","NW"],
+            multi: false
+        },
+        // king knight
+        kk: {
+            pattern: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)],
+            direction: ["N","E","S","W"],
+            multi: false
+        },
+        // right bishop
+        rb: {
+            pattern: move_pattern.linear,
+            direction: ["NE","SE"],
+            multi: true
+        },
+        // vertical root
+        vr: {
+            pattern: move_pattern.linear,
+            direction: ["N","S"],
+            multi: true
+        },
+    };
 
+let cases;
 // recuperation de l'objet qui contiendra mon tableau
 function game(start){
     a = document.getElementById("plateau");
@@ -28,9 +92,9 @@ function game(start){
                 b.innerHTML += "<div class='case" + c + "' id='" + eval("L" + i1) + i2 + "'><span class='index'>" + eval("L" + i1) + i2 + "</span></div>";
         }
     }
-    c = document.getElementsByClassName('case');
+    cases = document.getElementsByClassName('case');
     if(start == "0") return;
-    for(i=0; i < c.length - 1; i++) c[i].addEventListener('click', turn);
+    for(i=0; i < cases.length - 1; i++) cases[i].addEventListener('click', turn);
     a = 1
     turn();
 }
@@ -54,5 +118,45 @@ function turn(){
         
     }
 }
-function play(){}
+function play(){
+    function pattern(moves, directions, multi){
+        function validation(current_case){
+            // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
+            return current_case.children.length == 1 && "range"
+        }
+        function move(pattern, n){
+            return cases[pattern(n)]
+        }
+
+        function direction(cardinal){
+            let inc;
+            function get_inc(){
+                switch (cardinal) {
+                    case "N"    : return  -10
+                    case "NE"   : return  -9
+                    case "E"    : return  1
+                    case "SE"   : return  11
+                    case "S"    : return  10
+                    case "SW"   : return  9
+                    case "W"    : return  -1
+                    case "NW"   : return  -11
+    
+                    default: throw "unknown direction";
+                }
+            }
+            let valid;
+            moves.forEach(pattern => {
+                const patterns = Array.isArray(pattern) ? pattern : [pattern];
+                patterns.forEach(pattern => {
+                    const current_case = move(pattern, get_inc())
+                    current_case?.classList.add(valid = validation(current_case))
+                })
+            })
+            return valid;
+        }
+        directions.forEach(cardinal => {
+            do {} while (multi && direction(cardinal) == "range");
+        });
+    }
+}
 game(0);

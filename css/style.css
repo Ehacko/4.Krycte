@@ -1,9 +1,8 @@
-:root
-{
+:root {
 	--rotation: none;
 	--blink: block;
 }
-#plateau{
+#plateau {
 	margin: auto;
 	border: ridge 5px gold;
 	width: min-content;
@@ -11,49 +10,41 @@
 	transform: var(--rotation);
 	position: relative;
 }
-.ligne
-{
+.ligne {
 	display: inline-flex;
 	position: relative;
 }
-.case
-{
+.case {
 	width: 98px;
 	height: 98px;
 	border: solid 1px white;
 	position: relative;
 }
-.case.blk
-{
+.case.blk {
 	color: white;
 	background-color: black;
 	border: solid 1px black;
 }
-.case.mvt
-{
+.case.mvt {
 	width: 94px;
 	height: 94px;
 	background-color: forestgreen;
 	border: double 3px darkgreen;
 }
-.case.atk
-{
+.case.atk {
 	width: 90px;
 	height: 90px;
 	border: groove 5px red;
 }
-.white, .black
-{
+.white, .black {
 	height: -webkit-fill-available;
 	background-position: center;
 	z-index: 500;
 }
-.black
-{
+.black {
 	transform: rotate(180deg);
 }
-.index
-{
+.index {
 	transform: var(--rotation);
 	display: var(--blink);
 	position: absolute;
@@ -62,4 +53,7 @@
 	bottom: 0;
 	left: 0;
 	padding: 5px;
+}
+.range > .index {
+	background-color: rgba(50, 50, 250, .5);
 }
