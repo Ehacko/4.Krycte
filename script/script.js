@@ -100,7 +100,7 @@ function game(start){
     cases = document.getElementsByClassName('case');
     if(start == "0") return;
     for(i=0; i < cases.length - 1; i++) cases[i].addEventListener('click', turn);
-    nex_turn();
+    next_turn();
 }
 function next_turn(){
     if (b == "white") {
