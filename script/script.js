@@ -15,66 +15,71 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         hr: {
             move: move_pattern.linear,
             direction: ["E","W"],
-            multi: true
+            range: infinty
         },
         // left bishop
         lb: {
             move: move_pattern.linear,
             direction: ["SW","NW"],
-            multi: true
+            range: infinty
         },
         // queen knight
         qk: {
             move: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)],
             direction: ["NE","SE","SW","NW"],
-            multi: false
+            range: 1
         },
         // concubine
         cb: {
             move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
-            multi: true
+            range: infinty
         },
         // king
         kg: {
             move: move_pattern.linear,
             direction: ["N","E","S","W"],
-            multi: false
+            range: 1
         },
         // queen
         qn: {
             move: move_pattern.linear,
             direction: ["N","E","S","W"],
-            multi: true
+            range: infinty
         },
         // understudy
         us: {
             move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
-            multi: false
+            range: 1
         },
         // king knight
         kk: {
             move: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)],
             direction: ["N","E","S","W"],
-            multi: false
+            range: 1
         },
         // right bishop
         rb: {
             move: move_pattern.linear,
             direction: ["NE","SE"],
-            multi: true
+            range: infinty
         },
         // vertical root
         vr: {
             move: move_pattern.linear,
             direction: ["N","S"],
-            multi: true
+            range: infinty
         },
         ft: {
-            move: [move_pattern.linear, (n)=>move_pattern.linear(n*2)],
+            move: [move_pattern.linear],
             direction: ["front"],
-            multi: false
+            range: 2
+        },
+        ar: {
+            move: [move_pattern.linear],
+            direction: ["front"],
+            range: 1
         }
     };
 
@@ -142,7 +147,7 @@ function play(s_case){
     s = s_case.children[1]
     const [row, col] = s_case.id
     let current_pos, pawn_pos=(10 * eval(row))+Number(col)-1;
-    function pattern(moves, directions, multi){
+    function pattern(moves, directions, range){
         refresh()
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
@@ -179,11 +184,12 @@ function play(s_case){
         }
         directions.forEach(cardinal => {
             current_pos = pawn_pos;
-            do {} while (direction(cardinal) == "range" && multi);
+            let moves_left=range
+            do {} while (moves_left-- && direction(cardinal) == "range");
         });
     }
-    const { move,direction,multi } = pawnMoves[s.classList[1]]
-    pattern(move,direction,multi)
+    const { move,direction,range } = pawnMoves[s.classList[1]]
+    pattern(move,direction,range)
 
 }
 game(0);
