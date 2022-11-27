@@ -125,8 +125,9 @@ function turn(){
 }
 function play(pawn){
     const [row, col] = pawn.parentElement.id
-    let current_pos, pawn_pos=(10 * eval(row))+Number(col);
+    let current_pos, pawn_pos=(10 * eval(row))+Number(col)-1;
     function pattern(moves, directions, multi){
+        [...document.querySelectorAll('.range,.attack,.switch')].foreach(elem => elem.classList.remove("range","attack","switch"))
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
             return current_case.children.length == 1 && "range"
