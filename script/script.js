@@ -1,7 +1,7 @@
 //declaration des variables.
 //les varriables A1 � 10 et J1 � 10 contiennent les valeurs des pieces maitresses, tandis que celles de B1 � 10 et I1 � 10 contiennent les valeurs des autres pieces.
 //A1(position sur damier) = ["white"(equipe blanche), "hr"(tour horizontal), "whr"(tour horizontal blanche)]
-const A = 1, B = 2, C = 3, D = 4, E = 5, F = 6, G = 7 ,H = 8, I = 9, J =10,
+const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
     L1 = "A", L2 = "B", L3 = "C", L4 = "D", L5 = "E", L6 = "F", L7 = "G", L8 = "H", L9 = "I", L10 = "J",
     A1 = ["black", " hr", "bhr"], A2 = ["black", " lb", "blb"], A3 = ["black", " qk", "bqk"], A4 = ["black", " cb", "bcb"], A5 = ["black", " kg", "bkg"],
     A6 = ["black", " qn", "bqn"], A7 = ["black", " us", "bus"], A8 = ["black", " kk", "bkk"], A9 = ["black", " rb", "brb"], A10 = ["black", " vr", "bvr"],
@@ -79,7 +79,7 @@ function game(start){
     a = document.getElementById("plateau");
     a.innerHTML = ""
 // creation des ligne.
-    for(i1 = 1; i1 <= 10; i1 ++) {
+    for(i1 = 0; i1 < 10; i1 ++) {
         a.innerHTML += "<div class='ligne' id='" + eval("L" + i1) + "' ></div>";
         b = document.getElementById(eval("L" + i1));
 // creation des case et des pions
@@ -119,17 +119,18 @@ function turn(){
     }
 }
 function play(pawn){
+    const [row, col] = pawn.id
+    let current_pos = (10 * eval(row))+Number(col)
     function pattern(moves, directions, multi){
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
             return current_case.children.length == 1 && "range"
         }
-        function move(pattern, n){
-            return cases[pattern(n)]
+        function move(current_pos,pattern, n){
+            return cases[current_pos+pattern(n)]
         }
 
         function direction(cardinal){
-            let inc;
             function get_inc(){
                 switch (cardinal) {
                     case "N"    : return  -10
@@ -146,11 +147,8 @@ function play(pawn){
             }
             let valid;
             moves.forEach(pattern => {
-                const patterns = Array.isArray(pattern) ? pattern : [pattern];
-                patterns.forEach(pattern => {
-                    const current_case = move(pattern, get_inc())
-                    current_case?.classList.add(valid = validation(current_case))
-                })
+                const current_case = move(pattern, get_inc())
+                current_case?.classList.add(valid = validation(current_case))
             })
             return valid;
         }
