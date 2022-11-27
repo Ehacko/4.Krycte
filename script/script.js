@@ -116,7 +116,7 @@ function next_turn(){
         b = "white";
         document.documentElement.style.setProperty('--rotation', 'rotate(0deg)');
     }
-    setTimeout(function(){ alert( b + "'s turn"); }, 1750);
+    // setTimeout(function(){ alert( b + "'s turn"); }, 1750);
 }
 function turn(){
     switch (true) {
