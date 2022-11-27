@@ -206,7 +206,7 @@ function play(s_case){
     }
     const { move,direction,range,twin } = pawnMoves[s.classList[1]]
     pattern(move,direction,range)
-    document.querySelector(`.${b}.${twin}`).parentElement.classList.add("switch")
+    document.querySelector(`.${b}.${twin}`)?.parentElement.classList.add("switch")
 
 }
 game(0);
