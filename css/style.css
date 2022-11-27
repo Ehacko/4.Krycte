@@ -6,7 +6,7 @@
 	margin: auto;
 	border: ridge 5px gold;
 	width: min-content;
-	transition: transform 1.5s linear;
+	transition: transform .5s linear;
 	transform: var(--rotation);
 	position: relative;
 }
