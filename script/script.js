@@ -127,7 +127,9 @@ function play(pawn){
             return current_case.children.length == 1 && "range"
         }
         function move(pattern, n){
-            return cases[current_pos = current_pos+pattern(n)]
+            const change = pattern(n);
+            current_pos = current_pos+change
+            return cases[current_pos]
         }
 
         function direction(cardinal){
