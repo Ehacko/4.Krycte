@@ -159,10 +159,10 @@ function play(s_case){
     let current_pos, pawn_pos=(10 * eval(row))+Number(col)-1;
     function pattern(moves, directions, range){
         refresh()
-        function validation(current_case){
-            // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
+        function validation(current_case, n){
+            let cur_col = current_pos%10
             switch (true) {
-                // case current_case.children.length == 1: return;
+                case n < 0 ? cur_col == 9: cur_col == 0: return;
                 case current_case.children.length == 1: return "range";
                 case !current_case.children[1].classList.contains(s.classList[0]): return "attack";
             }
@@ -191,8 +191,9 @@ function play(s_case){
             let valid, pos_save=current_pos;
             (Array.isArray(moves) ? moves : [moves]).forEach(pattern => {
                 current_pos = pos_save
-                const current_case = move(pattern, get_inc())
-                current_case?.classList.add(valid = validation(current_case))
+                let inc = get_inc()
+                const current_case = move(pattern, inc)
+                current_case?.classList.add(valid = validation(current_case, inc))
             })
             return valid;
         }
