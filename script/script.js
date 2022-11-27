@@ -119,8 +119,8 @@ function turn(){
     }
 }
 function play(pawn){
-    const [row, col] = pawn.id
-    let current_pos = (10 * eval(row))+Number(col)
+    const [row, col] = pawn.parentElement.id
+    let current_pos;
     function pattern(moves, directions, multi){
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
@@ -153,6 +153,7 @@ function play(pawn){
             return valid;
         }
         directions.forEach(cardinal => {
+            current_pos = (10 * eval(row))+Number(col)
             do {} while (direction(cardinal) == "range" && multi);
         });
     }
