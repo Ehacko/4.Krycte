@@ -120,7 +120,7 @@ function turn(){
 }
 function play(pawn){
     const [row, col] = pawn.parentElement.id
-    let current_pos;
+    let current_pos, pawn_pos=(10 * eval(row))+Number(col);
     function pattern(moves, directions, multi){
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
@@ -147,15 +147,16 @@ function play(pawn){
                     default: throw "unknown direction";
                 }
             }
-            let valid;
+            let valid, pos_save=current_pos;
             moves.forEach(pattern => {
+                current_pos = pos_save
                 const current_case = move(pattern, get_inc())
                 current_case?.classList.add(valid = validation(current_case))
             })
             return valid;
         }
         directions.forEach(cardinal => {
-            current_pos = (10 * eval(row))+Number(col)
+            current_pos = pawn_pos;
             do {} while (direction(cardinal) == "range" && multi);
         });
     }
