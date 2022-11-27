@@ -72,12 +72,12 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
             range: Infinity
         },
         ft: {
-            move: [move_pattern.linear],
+            move: move_pattern.linear,
             direction: ["front"],
             range: 2
         },
         ar: {
-            move: [move_pattern.linear],
+            move: move_pattern.linear,
             direction: ["front"],
             range: 1
         }
@@ -163,13 +163,13 @@ function play(s_case){
             function get_inc(){
                 switch (true) {
                     case (cardinal == "N" || cardinal == "front" && b=="white")    : return  -10
-                    case (cardinal == "NE")   : return  9
+                    case (cardinal == "NE")   : return  -10 + 1
                     case (cardinal == "E")    : return  1
-                    case (cardinal == "SE")   : return  -11
+                    case (cardinal == "SE")   : return  10 + 1
                     case (cardinal == "S" || cardinal == "front" && b=="black")    : return  10
-                    case (cardinal == "SW")   : return  -9
+                    case (cardinal == "SW")   : return  10 + -1
                     case (cardinal == "W")    : return  -1
-                    case (cardinal == "NW")   : return  11
+                    case (cardinal == "NW")   : return  -10 + -1
     
                     default: throw "unknown direction";
                 }
