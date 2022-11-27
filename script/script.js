@@ -15,66 +15,76 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         hr: {
             move: move_pattern.linear,
             direction: ["E","W"],
-            range: Infinity
+            range: Infinity,
+            twin: "vr"
         },
         // left bishop
         lb: {
             move: move_pattern.linear,
             direction: ["BL","TL"],
-            range: Infinity
+            range: Infinity,
+            twin: 'rb'
         },
         // queen knight
         qk: {
             move: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)],
             direction: ["NE","SE","SW","NW"],
-            range: 1
+            range: 1,
+            twin: "kk"
         },
         // concubine
         cb: {
             move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
-            range: Infinity
+            range: Infinity,
+            twin: "qn"
         },
         // king
         kg: {
             move: move_pattern.linear,
             direction: ["N","E","S","W"],
-            range: 1
+            range: 1,
+            twin: "us"
         },
         // queen
         qn: {
             move: move_pattern.linear,
             direction: ["N","E","S","W"],
-            range: Infinity
+            range: Infinity,
+            twin: "cb"
         },
         // understudy
         us: {
             move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
-            range: 1
+            range: 1,
+            twin: "kg"
         },
         // king knight
         kk: {
             move: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)],
             direction: ["N","E","S","W"],
-            range: 1
+            range: 1,
+            twin: "qk"
         },
         // right bishop
         rb: {
             move: move_pattern.linear,
             direction: ["BR","TR"],
-            range: Infinity
+            range: Infinity,
+            twin: "lb"
         },
         // vertical root
         vr: {
             move: move_pattern.linear,
             direction: ["N","S"],
-            range: Infinity
+            range: Infinity,
+            twin: "hr"
         },
         ft: {
             move: move_pattern.linear,
             direction: ["front"],
-            range: 2
+            range: 2,
         },
         ar: {
             move: move_pattern.linear,
@@ -191,9 +201,11 @@ function play(s_case){
             let moves_left=range
             do {} while (moves_left-- && direction(cardinal) == "range");
         });
+
     }
-    const { move,direction,range } = pawnMoves[s.classList[1]]
+    const { move,direction,range,twin } = pawnMoves[s.classList[1]]
     pattern(move,direction,range)
+    document.querySelector(`.${b}.${twin}`)
 
 }
 game(0);
