@@ -78,7 +78,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         }
     };
 
-let cases, a, b, c;
+let cases, a, b, c, s;
 // recuperation de l'objet qui contiendra mon tableau
 function game(start){
     a = document.getElementById("plateau");
@@ -104,9 +104,13 @@ function game(start){
     turn();
 }
 function turn(){
+    if (event.currentTarget.classList.contains('range')){
+        event.currentTarget.append(s)
+        refresh(), turn()
+    }
     if (event.currentTarget.children.length > 1){
         a = event.currentTarget.children[1].className.split(' ')[0]
-        if (b == a) play(event.currentTarget.children[1]);
+        if (b == a) play(event.currentTarget);
         else if (b != a) alert("its " + b +"'s turn");
         else alert('error');
     }
@@ -126,11 +130,12 @@ function turn(){
 function refresh() {
     [...document.querySelectorAll('.range,.attack,.switch')].forEach(elem => elem.classList.remove("range","attack","switch"))
 }
-function play(pawn){
-    const [row, col] = pawn.parentElement.id
+function play(s_case){
+    s = s_case.children[1]
+    const [row, col] = s_case.id
     let current_pos, pawn_pos=(10 * eval(row))+Number(col)-1;
     function pattern(moves, directions, multi){
-
+        refresh()
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
             return current_case.children.length == 1 && "range"
