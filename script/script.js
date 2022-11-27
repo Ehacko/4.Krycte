@@ -100,31 +100,31 @@ function game(start){
     cases = document.getElementsByClassName('case');
     if(start == "0") return;
     for(i=0; i < cases.length - 1; i++) cases[i].addEventListener('click', turn);
-    a = 1
-    turn();
+    nex_turn();
+}
+function next_turn(){
+    if (b == "white") {
+        b = "black";
+        document.documentElement.style.setProperty('--rotation', 'rotate(180deg)');
+    }
+    else {
+        b = "white";
+        document.documentElement.style.setProperty('--rotation', 'rotate(0deg)');
+    }
+    setTimeout(function(){ alert( b + "'s turn"); }, 1750);
 }
 function turn(){
-    if (event.currentTarget.classList.contains('range')){
+    if (["range","attack","switch"].some(str=>event.currentTarget.classList.contains(str))){
+        if(event.currentTarget.classList.contains("attack")) event.currentTarget.removeChild(event.currentTarget.children[1]);
+        if(event.currentTarget.classList.contains("switch")) s.parentElement.append(event.currentTarget.children[1]);
         event.currentTarget.append(s)
-        refresh(), turn()
+        refresh(), next_turn()
     }
     if (event.currentTarget.children.length > 1){
         a = event.currentTarget.children[1].className.split(' ')[0]
         if (b == a) play(event.currentTarget);
         else if (b != a) alert("its " + b +"'s turn");
         else alert('error');
-    }
-    if (a == 1){
-        if (b == "white") {
-            b = "black";
-            document.documentElement.style.setProperty('--rotation', 'rotate(180deg)');
-        }
-        else {
-            b = "white";
-            document.documentElement.style.setProperty('--rotation', 'rotate(0deg)');
-        }
-        setTimeout(function(){ alert( b + "'s turn"); }, 1750);
-        
     }
 }
 function refresh() {
@@ -174,7 +174,7 @@ function play(s_case){
             do {} while (direction(cardinal) == "range" && multi);
         });
     }
-    const { move,direction,multi } = pawnMoves[pawn.classList[1]]
+    const { move,direction,multi } = pawnMoves[s.classList[1]]
     pattern(move,direction,multi)
 
 }
