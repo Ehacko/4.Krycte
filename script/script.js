@@ -126,8 +126,8 @@ function play(pawn){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
             return current_case.children.length == 1 && "range"
         }
-        function move(current_pos,pattern, n){
-            return cases[current_pos+pattern(n)]
+        function move(pattern, n){
+            return cases[current_pos = current_pos+pattern(n)]
         }
 
         function direction(cardinal){
