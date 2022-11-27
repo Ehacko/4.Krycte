@@ -152,8 +152,9 @@ function play(s_case){
         function validation(current_case){
             // current_case.children.length == 2 ? checkpawn(current_case.children[1]): checkcase()
             switch (true) {
+                // case current_case.children.length == 1: return;
                 case current_case.children.length == 1: return "range";
-                case current_case.children[1].classList.contains(s.classList[0]): return "attack";
+                case !current_case.children[1].classList.contains(s.classList[0]): return "attack";
             }
         }
         function move(pattern, n){
