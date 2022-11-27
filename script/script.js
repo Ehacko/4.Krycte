@@ -114,17 +114,25 @@ function next_turn(){
     setTimeout(function(){ alert( b + "'s turn"); }, 1750);
 }
 function turn(){
-    if (["range","attack","switch"].some(str=>event.currentTarget.classList.contains(str))){
-        if(event.currentTarget.classList.contains("attack")) event.currentTarget.removeChild(event.currentTarget.children[1]);
-        if(event.currentTarget.classList.contains("switch")) s.parentElement.append(event.currentTarget.children[1]);
-        event.currentTarget.append(s)
-        refresh(), next_turn()
-    }
-    if (event.currentTarget.children.length > 1){
-        a = event.currentTarget.children[1].className.split(' ')[0]
-        if (b == a) play(event.currentTarget);
-        else if (b != a) alert("its " + b +"'s turn");
-        else alert('error');
+    switch (true) {
+        case (["range","attack","switch"].some(str=>event.currentTarget.classList.contains(str))):
+            if(event.currentTarget.classList.contains("attack")) event.currentTarget.removeChild(event.currentTarget.children[1]);
+            if(event.currentTarget.classList.contains("switch")) s.parentElement.append(event.currentTarget.children[1]);
+            event.currentTarget.append(s)
+            refresh()
+            next_turn()
+            break;
+    
+        
+        case (event.currentTarget.children.length > 1):
+            a = event.currentTarget.children[1].className.split(' ')[0]
+            if (b == a) play(event.currentTarget);
+            else if (b != a) alert("its " + b +"'s turn");
+            else alert('error');
+            break;
+    
+        default:
+            break;
     }
 }
 function refresh() {
