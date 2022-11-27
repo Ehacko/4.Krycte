@@ -20,7 +20,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         // left bishop
         lb: {
             move: move_pattern.linear,
-            direction: ["SW","NW"],
+            direction: ["BL","TL"],
             range: Infinity
         },
         // queen knight
@@ -62,7 +62,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         // right bishop
         rb: {
             move: move_pattern.linear,
-            direction: ["NE","SE"],
+            direction: ["BR","TR"],
             range: Infinity
         },
         // vertical root
@@ -166,14 +166,14 @@ function play(s_case){
         function direction(cardinal){
             function get_inc(){
                 switch (true) {
-                    case (cardinal == "N" || cardinal == "front" && b=="white")    : return  -10
-                    case (cardinal == "NE")   : return  -10 + 1
+                    case (cardinal == "N"   || cardinal == "front" && b=="white")    : return  -10
+                    case (cardinal == "NE"  || cardinal == "BR" && b=="white" || cardinal == "TL" && b=="black")   : return  -10 + 1
                     case (cardinal == "E")    : return  1
-                    case (cardinal == "SE")   : return  10 + 1
-                    case (cardinal == "S" || cardinal == "front" && b=="black")    : return  10
-                    case (cardinal == "SW")   : return  10 + -1
+                    case (cardinal == "SE"  || cardinal == "TR" && b=="white" || cardinal == "BL" && b=="black")   : return  10 + 1
+                    case (cardinal == "S"   || cardinal == "front" && b=="black")    : return  10
+                    case (cardinal == "SW"  || cardinal == "TL" && b=="white" || cardinal == "BR" && b=="black")   : return  10 + -1
                     case (cardinal == "W")    : return  -1
-                    case (cardinal == "NW")   : return  -10 + -1
+                    case (cardinal == "NW"  || cardinal == "BL" && b=="white" || cardinal == "TR" && b=="black")   : return  -10 + -1
     
                     default: throw "unknown direction";
                 }
