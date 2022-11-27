@@ -158,9 +158,9 @@ function play(s_case){
             function get_inc(){
                 switch (true) {
                     case (cardinal == "N" || cardinal == "front" && b=="white")    : return  -10
-                    case (cardinal == "NE")   : return  -9
+                    case (cardinal == "NE")   : return  9
                     case (cardinal == "E")    : return  1
-                    case (cardinal == "SE")   : return  11
+                    case (cardinal == "SE")   : return  -11
                     case (cardinal == "S" || cardinal == "front" && b=="black")    : return  10
                     case (cardinal == "SW")   : return  -9
                     case (cardinal == "W")    : return  -1
