@@ -170,7 +170,7 @@ function play(s_case){
                 }
             }
             let valid, pos_save=current_pos;
-            moves.forEach(pattern => {
+            (Array.isArray(moves) ? moves : [moves]).forEach(pattern => {
                 current_pos = pos_save
                 const current_case = move(pattern, get_inc())
                 current_case?.classList.add(valid = validation(current_case))
