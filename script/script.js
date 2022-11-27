@@ -162,9 +162,9 @@ function play(s_case){
                     case (cardinal == "E")    : return  1
                     case (cardinal == "SE")   : return  11
                     case (cardinal == "S" || cardinal == "front" && b=="black")    : return  10
-                    case (cardinal == "SW")   : return  9
+                    case (cardinal == "SW")   : return  -9
                     case (cardinal == "W")    : return  -1
-                    case (cardinal == "NW")   : return  -11
+                    case (cardinal == "NW")   : return  11
     
                     default: throw "unknown direction";
                 }
