@@ -71,6 +71,11 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
             direction: ["N","S"],
             multi: true
         },
+        ft: {
+            move: [move_pattern.linear, (n)=>move_pattern.linear(n*2)],
+            direction: ["front"],
+            multi: false
+        }
     };
 
 let cases, a, b, c;
@@ -134,15 +139,15 @@ function play(pawn){
 
         function direction(cardinal){
             function get_inc(){
-                switch (cardinal) {
-                    case "N"    : return  -10
-                    case "NE"   : return  -9
-                    case "E"    : return  1
-                    case "SE"   : return  11
-                    case "S"    : return  10
-                    case "SW"   : return  9
-                    case "W"    : return  -1
-                    case "NW"   : return  -11
+                switch (true) {
+                    case (cardinal == "N" || cardinal == "front" && b=="black")    : return  -10
+                    case (cardinal == "NE")   : return  -9
+                    case (cardinal == "E")    : return  1
+                    case (cardinal == "SE")   : return  11
+                    case (cardinal == "S" || cardinal == "front" && b=="white")    : return  10
+                    case (cardinal == "SW")   : return  9
+                    case (cardinal == "W")    : return  -1
+                    case (cardinal == "NW")   : return  -11
     
                     default: throw "unknown direction";
                 }
