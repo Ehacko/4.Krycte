@@ -15,13 +15,13 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         hr: {
             move: move_pattern.linear,
             direction: ["E","W"],
-            range: infinty
+            range: Infinty
         },
         // left bishop
         lb: {
             move: move_pattern.linear,
             direction: ["SW","NW"],
-            range: infinty
+            range: Infinty
         },
         // queen knight
         qk: {
@@ -33,7 +33,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         cb: {
             move: move_pattern.linear,
             direction: ["NE","SE","SW","NW"],
-            range: infinty
+            range: Infinty
         },
         // king
         kg: {
@@ -45,7 +45,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         qn: {
             move: move_pattern.linear,
             direction: ["N","E","S","W"],
-            range: infinty
+            range: Infinty
         },
         // understudy
         us: {
@@ -63,13 +63,13 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
         rb: {
             move: move_pattern.linear,
             direction: ["NE","SE"],
-            range: infinty
+            range: Infinty
         },
         // vertical root
         vr: {
             move: move_pattern.linear,
             direction: ["N","S"],
-            range: infinty
+            range: Infinty
         },
         ft: {
             move: [move_pattern.linear],
