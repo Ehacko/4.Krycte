@@ -262,8 +262,9 @@ function play(s_case){
         directions.forEach(cardinal => {
             current_pos = pawn_pos;
             let moves_left=moves.range
-            let attacks_left=attacks?.range
             do {} while (moves_left-- && direction(cardinal, {...moves}) == "range");
+            current_pos = pawn_pos;
+            let attacks_left=attacks?.range
             do {} while (attacks_left-- && direction(cardinal, {...attacks}, true) != "attack");
         });
 
