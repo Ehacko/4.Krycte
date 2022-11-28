@@ -121,7 +121,8 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
             attack: {
                 pattern: [(n)=>n+1,(n)=>n-1],
                 ignore: 1,
-                range: 2
+                range: 2,
+                type: "ranged"
             }
         },
         sft: {
@@ -144,7 +145,8 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
             attack: {
                 pattern: [((n)=>n+1),((n)=>n-1)],
                 ignore: 1,
-                range: Infinity
+                range: Infinity,
+                type: "ranged"
             }
         }
     };
@@ -195,7 +197,7 @@ function turn(){
         case (["range","attack","switch"].some(str=>event.currentTarget.classList.contains(str))):
             if(event.currentTarget.classList.contains("attack")) event.currentTarget.removeChild(event.currentTarget.children[1]);
             if(event.currentTarget.classList.contains("switch")) s.parentElement.append(event.currentTarget.children[1]);
-            event.currentTarget.append(s)
+            if(pawnMoves[s.classList[1]].attack?.type == "ranged" && !event.currentTarget.classList.contains("attack")) event.currentTarget.append(s);
             refresh()
             next_turn()
             break;
