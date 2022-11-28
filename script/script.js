@@ -224,9 +224,10 @@ function play(s_case){
         function validation(current_case, n, t, ignore){
             let cur_col = current_pos%10
             switch (true) {
+                case !!ignore:
                 case n < 0 ? cur_col == 9: cur_col == 0: return;
-                case !ignore && current_case.children.length == 1 && t!="attack": return "range";
-                case !ignore && !current_case.children[1].classList.contains(s.classList[0]) && t !="move": return "attack";
+                case current_case.children.length == 1 && t!="attack": return "range";
+                case !current_case.children[1]?.classList.contains(s.classList[0]) && t !="move": return "attack";
             }
         }
         function move(pattern, n){
