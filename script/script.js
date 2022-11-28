@@ -118,7 +118,12 @@ function game(start){
     next_turn();
 }
 function next_turn(){
-    if (b == "white") {
+    const kgs = document.getElementsByClassName('kg')
+    if(a=0) return
+    if( kgs.length == 1) {
+        alert(kgs[0].classList[0]+" win")
+    }
+    else if (b == "white") {
         b = "black";
         document.documentElement.style.setProperty('--rotation', 'rotate(180deg)');
     }
