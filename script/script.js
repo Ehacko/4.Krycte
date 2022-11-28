@@ -254,7 +254,7 @@ function play(s_case){
                 current_pos = pos_save
                 let inc = get_inc()
                 const current_case = move(pattern, inc)
-                current_case?.classList.add(valid = validation(current_case, inc, range && "attack" || attacks && "move", action?.ignore-- ))
+                current_case?.classList.add(valid = validation(current_case, inc, range && "attack" || attacks && "move", action.ignore-- ))
             })
             return valid;
         }
