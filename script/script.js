@@ -263,7 +263,7 @@ function play(s_case){
             let moves_left=moves.range
             let attacks_left=attacks?.range
             do {} while (moves_left-- && direction(cardinal, {...moves}) == "range");
-            do {} while (attacks_left-- && direction(cardinal, {...attacks}, true) == "attack");
+            do {} while (attacks_left-- && direction(cardinal, {...attacks}, true) != "attack");
         });
 
     }
