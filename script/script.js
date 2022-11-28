@@ -121,7 +121,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
             attack: {
                 pattern: [(n)=>n+1,(n)=>n-1],
                 ignore: 1,
-                range: 1
+                range: 2
             }
         },
         sft: {
@@ -142,7 +142,7 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
             },
             direction: ["back"],
             attack: {
-                pattern: [(n)=>n+1,(n)=>n-1],
+                pattern: [((n)=>n+1),((n)=>n-1)],
                 ignore: 1,
                 range: Infinity
             }
@@ -227,7 +227,7 @@ function play(s_case){
                 case !!ignore:
                 case n < 0 ? cur_col == 9: cur_col == 0: return;
                 case current_case.children.length == 1 && t!="attack": return "range";
-                case !current_case.children[1]?.classList.contains(s.classList[0]) && t !="move": return "attack";
+                case current_case.children[1] && !current_case.children[1].classList.contains(s.classList[0]) && t !="move": return "attack";
             }
         }
         function move(pattern, n){
