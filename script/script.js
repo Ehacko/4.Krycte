@@ -225,9 +225,10 @@ function play(s_case){
         refresh()
         function validation(current_case, n, t, ignore){
             let cur_col = current_pos%10
+            console.log(cur_col, n)
             switch (true) {
                 case !!ignore:
-                case n < 0 ? cur_col == 9: cur_col == 0: return;
+                case [11,-9].includes(n) ? cur_col == 9: cur_col == 0: return;
                 case current_case.children.length == 1 && t!="attack": return "range";
                 case current_case.children[1] && !current_case.children[1].classList.contains(s.classList[0]) && t !="move": return "attack";
             }
