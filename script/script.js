@@ -197,7 +197,7 @@ function turn(){
         case (["range","attack","switch"].some(str=>event.currentTarget.classList.contains(str))):
             if(event.currentTarget.classList.contains("attack")) event.currentTarget.removeChild(event.currentTarget.children[1]);
             if(event.currentTarget.classList.contains("switch")) s.parentElement.append(event.currentTarget.children[1]);
-            if(pawnMoves[s.classList[1]].attack?.type == "ranged" && !event.currentTarget.classList.contains("attack")) event.currentTarget.append(s);
+            if(!pawnMoves[s.classList[1]].attack?.type == "ranged" && !event.currentTarget.classList.contains("attack")) event.currentTarget.append(s);
             refresh()
             next_turn()
             break;
