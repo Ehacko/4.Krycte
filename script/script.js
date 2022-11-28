@@ -13,83 +13,139 @@ const A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6 ,H = 7, I = 8, J = 9,
     pawnMoves = {
         // horizontal rook
         hr: {
-            move: move_pattern.linear,
+            move: {
+                range: Infinity,
+                pattern: move_pattern.linear
+            },
             direction: ["E","W"],
-            range: Infinity,
             twin: "vr"
         },
         // left bishop
         lb: {
-            move: move_pattern.linear,
+            move: {
+                range: Infinity,
+                pattern: move_pattern.linear
+            },
             direction: ["BL","TL"],
-            range: Infinity,
             twin: 'rb'
         },
         // queen knight
         qk: {
-            move: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)],
+            move: {
+                range: 1,
+                pattern: [move_pattern.L((n)=> Math.abs(n) == 11 ? 9 : 11), move_pattern.L((n)=> Math.abs(n) == 11 ? -9 : -11)]
+            },
             direction: ["NE","SE","SW","NW"],
-            range: 1,
             twin: "kk"
         },
         // concubine
         cb: {
-            move: move_pattern.linear,
+            move: {
+                range: Infinity,
+                pattern: move_pattern.linear
+            },
             direction: ["NE","SE","SW","NW"],
-            range: Infinity,
             twin: "qn"
         },
         // king
         kg: {
-            move: move_pattern.linear,
+            move: {
+                range: 1,
+                pattern: move_pattern.linear
+            },
             direction: ["N","E","S","W"],
-            range: 1,
             twin: "us"
         },
         // queen
         qn: {
-            move: move_pattern.linear,
+            move: {
+                range: Infinity,
+                pattern: move_pattern.linear
+            },
             direction: ["N","E","S","W"],
-            range: Infinity,
             twin: "cb"
         },
         // understudy
         us: {
-            move: move_pattern.linear,
+            move: {
+                range: 1,
+                pattern: move_pattern.linear
+            },
             direction: ["NE","SE","SW","NW"],
-            range: 1,
             twin: "kg"
         },
         // king knight
         kk: {
-            move: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)],
+            move: {
+                range: 1,
+                pattern: [move_pattern.L((n)=> Math.abs(n) == 10 ? 1 : 10), move_pattern.L((n)=> Math.abs(n) == 10 ? -1 : -10)]
+            },
             direction: ["N","E","S","W"],
-            range: 1,
             twin: "qk"
         },
         // right bishop
         rb: {
-            move: move_pattern.linear,
+            move: {
+                range: Infinity,
+                pattern: move_pattern.linear
+            },
             direction: ["BR","TR"],
-            range: Infinity,
             twin: "lb"
         },
         // vertical root
         vr: {
-            move: move_pattern.linear,
+            move: {
+                range: Infinity,
+                pattern: move_pattern.linear
+            },
             direction: ["N","S"],
-            range: Infinity,
             twin: "hr"
         },
         ft: {
-            move: move_pattern.linear,
+            move: {
+                pattern: move_pattern.linear,
+                range: 2
+            },
             direction: ["front"],
-            range: 2,
+            attack: {
+                pattern: [(n)=>n+1,(n)=>n-1],
+                range: 1
+            }
         },
         ar: {
-            move: move_pattern.linear,
+            move: {
+                range: 1,
+                pattern: move_pattern.linear
+            },
             direction: ["front"],
-            range: 1
+            attack: {
+                pattern: [(n)=>n+1,(n)=>n-1],
+                ignore: 1,
+                range: 1
+            }
+        },
+        sft: {
+            move: {
+                pattern: move_pattern.linear,
+                range: 2
+            },
+            direction: ["N","E","S","W"],
+            attack: {
+                pattern: [(n)=>n+1,(n)=>n-1],
+                range: 1
+            }
+        },
+        sar: {
+            move: {
+                range: 0,
+                pattern: move_pattern.linear
+            },
+            direction: ["back"],
+            attack: {
+                pattern: [(n)=>n+1,(n)=>n-1],
+                ignore: 1,
+                range: Infinity
+            }
         }
     };
 
@@ -121,6 +177,7 @@ function next_turn(){
     const kgs = document.getElementsByClassName('kg')
     if(a=0) return
     if( kgs.length == 1) {
+        a=0
         alert(kgs[0].classList[0]+" win")
     }
     else if (b == "white") {
@@ -162,14 +219,14 @@ function play(s_case){
     s = s_case.children[1]
     const [row, col] = s_case.id
     let current_pos, pawn_pos=(10 * eval(row))+Number(col)-1;
-    function pattern(moves, directions, range){
+    function pattern(moves, directions, attacks){
         refresh()
-        function validation(current_case, n){
+        function validation(current_case, n, t, ignore){
             let cur_col = current_pos%10
             switch (true) {
                 case n < 0 ? cur_col == 9: cur_col == 0: return;
-                case current_case.children.length == 1: return "range";
-                case !current_case.children[1].classList.contains(s.classList[0]): return "attack";
+                case !ignore && current_case.children.length == 1 && t!="attack": return "range";
+                case !ignore && !current_case.children[1].classList.contains(s.classList[0]) && t !="move": return "attack";
             }
         }
         function move(pattern, n){
@@ -177,8 +234,7 @@ function play(s_case){
             current_pos = current_pos+change
             return cases[current_pos]
         }
-
-        function direction(cardinal){
+        function direction(cardinal, action, range){
             function get_inc(){
                 switch (true) {
                     case (cardinal == "N"   || cardinal == "front" && b=="white")    : return  -10
@@ -194,23 +250,25 @@ function play(s_case){
                 }
             }
             let valid, pos_save=current_pos;
-            (Array.isArray(moves) ? moves : [moves]).forEach(pattern => {
+            (Array.isArray(action.pattern) ? action.pattern : [action.pattern]).forEach(pattern => {
                 current_pos = pos_save
                 let inc = get_inc()
                 const current_case = move(pattern, inc)
-                current_case?.classList.add(valid = validation(current_case, inc))
+                current_case?.classList.add(valid = validation(current_case, inc, range && "attack" || attacks && "move", action?.ignore-- ))
             })
             return valid;
         }
         directions.forEach(cardinal => {
             current_pos = pawn_pos;
-            let moves_left=range
-            do {} while (moves_left-- && direction(cardinal) == "range");
+            let moves_left=moves.range
+            let attacks_left=attacks?.range
+            do {} while (moves_left-- && direction(cardinal, {...moves}) == "range");
+            do {} while (attacks_left-- && direction(cardinal, {...attacks}, true) == "attack");
         });
 
     }
-    const { move,direction,range,twin } = pawnMoves[s.classList[1]]
-    pattern(move,direction,range)
+    const { move,attack,direction,twin } = pawnMoves[s.classList[1]]
+    pattern(move,direction, attack)
     document.querySelector(`.${b}.${twin}`)?.parentElement.classList.add("switch")
 
 }
